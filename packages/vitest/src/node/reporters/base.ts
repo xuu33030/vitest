@@ -488,7 +488,7 @@ export abstract class BaseReporter implements Reporter {
     files: File[] = this.ctx.state.getFiles(),
     errors: unknown[] = this.ctx.state.getUnhandledErrors(),
   ): void {
-    const failed = errors.length > 0 || hasFailed(files)
+    const failed = errors.length > 0 || hasFailed(files) || this.failedUnwatchedFiles.length > 0
 
     if (failed) {
       this.log(withLabel('red', 'FAIL', 'Tests failed. Watching for file changes...'))

@@ -16,8 +16,9 @@ describe.for([true, false])('%s reporter with %s tty', (isTTY) => {
     fs.editFile('./basic.test.js', (code) => `${code}\n`)
 
     await vitest.waitForStdout('RERUN  ../basic.test.js')
-    await vitest.waitForStdout('Waiting for file changes...')
+    await vitest.waitForStdout('Tests failed. Watching for file changes...')
 
+    expect(vitest.stdout).not.toContain('PASS  Waiting for file changes')
     expect(vitest.stdout).not.toContain('log fail')
     expect(vitest.stdout).toContain('❯ failed.test.js')
     expect(vitest.stdout).toContain('× fails')
